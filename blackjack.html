@@ -63,9 +63,24 @@
       }
       var bust = 0
       for(var i=0; i<jim.hand.length; i++){
-        bust += jim.hand[i].val
+        if (jim.hand[i].val > 10){
+          bust += 10
+        } else if (bust == 10 && jim.hand[i].val == 1){
+          bust += 11
+        } else if (bust == 1 && jim.hand[i].val >= 10){
+          bust += 20
+        } else {
+          bust += jim.hand[i].val
+        }
         if (bust == 21){
           $(".bust").html("<h3>BLACKJACK</h3>")
+          $('.bust').each(function() { // BLINKING BLACKJACK TEXT :D :D :D :D :D :D :D :D :D :D :D :D :D :D :D :D
+            var elem = $(this);
+            setInterval(function() {
+              if (elem.css('visibility') == 'hidden') { elem.css('visibility', 'visible');
+              } else { elem.css('visibility', 'hidden'); }
+              }, 500);
+            });
         } else if (bust > 21){
           $(".bust").html("<h3>BUST!!!</h3>")
         }
